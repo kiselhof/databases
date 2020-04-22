@@ -1,108 +1,108 @@
-/*Проектування  багатотабличних запитів (внутрішнє з'єднання, inner join, left join, right join, self join, subquery, correlated subquery, exists, not exist, union)*/
-/*1.Вивести значення наступних колонок: назва книги, ціна, назва видавництва. 
-Використовувати внутрішнє з'єднання, застосовуючи where.*/
+/*РџСЂРѕРµРєС‚СѓРІР°РЅРЅСЏ  Р±Р°РіР°С‚РѕС‚Р°Р±Р»РёС‡РЅРёС… Р·Р°РїРёС‚С–РІ (РІРЅСѓС‚СЂС–С€РЅС” Р·'С”РґРЅР°РЅРЅСЏ, inner join, left join, right join, self join, subquery, correlated subquery, exists, not exist, union)*/
+/*1.Р’РёРІРµСЃС‚Рё Р·РЅР°С‡РµРЅРЅСЏ РЅР°СЃС‚СѓРїРЅРёС… РєРѕР»РѕРЅРѕРє: РЅР°Р·РІР° РєРЅРёРіРё, С†С–РЅР°, РЅР°Р·РІР° РІРёРґР°РІРЅРёС†С‚РІР°. 
+Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё РІРЅСѓС‚СЂС–С€РЅС” Р·'С”РґРЅР°РЅРЅСЏ, Р·Р°СЃС‚РѕСЃРѕРІСѓСЋС‡Рё where.*/
 
 SELECT Title, Price, Publishment.publishment FROM Books, Publishment WHERE Books.id_publishment=Publishment.id_publishment;
 
 
-/*2.Вивести значення наступних колонок: назва книги, назва категорії. Використовувати внутрішнє з'єднання, застосовуючи inner join.*/
+/*2.Р’РёРІРµСЃС‚Рё Р·РЅР°С‡РµРЅРЅСЏ РЅР°СЃС‚СѓРїРЅРёС… РєРѕР»РѕРЅРѕРє: РЅР°Р·РІР° РєРЅРёРіРё, РЅР°Р·РІР° РєР°С‚РµРіРѕСЂС–С—. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё РІРЅСѓС‚СЂС–С€РЅС” Р·'С”РґРЅР°РЅРЅСЏ, Р·Р°СЃС‚РѕСЃРѕРІСѓСЋС‡Рё inner join.*/
 SELECT Title, Categories.category FROM Books, Categories WHERE Books.id_category=Categories.id_categories;
 
-/*3.Вивести значення наступних колонок: назва книги, ціна, назва видавництво, формат.*/
+/*3.Р’РёРІРµСЃС‚Рё Р·РЅР°С‡РµРЅРЅСЏ РЅР°СЃС‚СѓРїРЅРёС… РєРѕР»РѕРЅРѕРє: РЅР°Р·РІР° РєРЅРёРіРё, С†С–РЅР°, РЅР°Р·РІР° РІРёРґР°РІРЅРёС†С‚РІРѕ, С„РѕСЂРјР°С‚.*/
 SELECT Title, Price, Publishment.publishment, Format_ FROM Books, Publishment WHERE Publishment.publishment = publishment.publishment;
 
-/*4.Вивести значення наступних колонок: тема, категорія, назва книги, назва видавництво. Фільтр за темами і категоріями.*/
+/*4.Р’РёРІРµСЃС‚Рё Р·РЅР°С‡РµРЅРЅСЏ РЅР°СЃС‚СѓРїРЅРёС… РєРѕР»РѕРЅРѕРє: С‚РµРјР°, РєР°С‚РµРіРѕСЂС–СЏ, РЅР°Р·РІР° РєРЅРёРіРё, РЅР°Р·РІР° РІРёРґР°РІРЅРёС†С‚РІРѕ. Р¤С–Р»СЊС‚СЂ Р·Р° С‚РµРјР°РјРё С– РєР°С‚РµРіРѕСЂС–СЏРјРё.*/
 SELECT Themes.theme, Categories.category, Title, Publishment.publishment 
 FROM Books, Themes, Categories, Publishment
 WHERE Themes.theme = Themes.theme AND Categories.category = Categories.category AND Publishment.publishment = publishment.publishment
 ORDER BY Themes.theme, Categories.category; 
 
-/*5.Вивести книги видавництва 'BHV', видані після 2000 р*/
+/*5.Р’РёРІРµСЃС‚Рё РєРЅРёРіРё РІРёРґР°РІРЅРёС†С‚РІР° 'BHV', РІРёРґР°РЅС– РїС–СЃР»СЏ 2000 СЂ*/
 SELECT Title, Publishment.publishment FROM Books, Publishment
 WHERE Publishment.publishment like 'BHV' AND (Year(Date_) >= 2000);
 
-/*6.Вивести загальну кількість сторінок по кожній назві категорії. Фільтр за спаданням кількості сторінок.*/
+/*6.Р’РёРІРµСЃС‚Рё Р·Р°РіР°Р»СЊРЅСѓ РєС–Р»СЊРєС–СЃС‚СЊ СЃС‚РѕСЂС–РЅРѕРє РїРѕ РєРѕР¶РЅС–Р№ РЅР°Р·РІС– РєР°С‚РµРіРѕСЂС–С—. Р¤С–Р»СЊС‚СЂ Р·Р° СЃРїР°РґР°РЅРЅСЏРј РєС–Р»СЊРєРѕСЃС‚С– СЃС‚РѕСЂС–РЅРѕРє.*/
 SELECT SUM(Pages) as 'Sum', category
 FROM Books, Categories
 GROUP BY category
 ORDER BY SUM(Pages) DESC;
 
-/*7.Вивести середню вартість книг по темі 'Використання ПК' і категорії 'Linux'.*/
+/*7.Р’РёРІРµСЃС‚Рё СЃРµСЂРµРґРЅСЋ РІР°СЂС‚С–СЃС‚СЊ РєРЅРёРі РїРѕ С‚РµРјС– 'Р’РёРєРѕСЂРёСЃС‚Р°РЅРЅСЏ РџРљ' С– РєР°С‚РµРіРѕСЂС–С— 'Linux'.*/
 SELECT AVG(Price), Themes.theme, Categories.category
 FROM Books, Themes, Categories
-WHERE Themes.theme like '%Використання ПК%' 
+WHERE Themes.theme like '%Р’РёРєРѕСЂРёСЃС‚Р°РЅРЅСЏ РџРљ%' 
 		OR Categories.category like '%Linux%';
 
 
-/*8.Вивести всі дані універсального відношення. Використовувати внутрішнє з'єднання, застосовуючи where.*/
+/*8.Р’РёРІРµСЃС‚Рё РІСЃС– РґР°РЅС– СѓРЅС–РІРµСЂСЃР°Р»СЊРЅРѕРіРѕ РІС–РґРЅРѕС€РµРЅРЅСЏ. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё РІРЅСѓС‚СЂС–С€РЅС” Р·'С”РґРЅР°РЅРЅСЏ, Р·Р°СЃС‚РѕСЃРѕРІСѓСЋС‡Рё where.*/
 SELECT * FROM Books, Themes, Publishment, Categories
 WHERE Books.id_publishment = Publishment.id_publishment
 	AND Books.id_category = Categories.id_categories
 	AND Books.id_theme = Themes.id_theme
 
-/*9.Вивести всі дані універсального відношення. Використовувати внутрішнє з'єднання, застосовуючи inner join*/.
+/*9.Р’РёРІРµСЃС‚Рё РІСЃС– РґР°РЅС– СѓРЅС–РІРµСЂСЃР°Р»СЊРЅРѕРіРѕ РІС–РґРЅРѕС€РµРЅРЅСЏ. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё РІРЅСѓС‚СЂС–С€РЅС” Р·'С”РґРЅР°РЅРЅСЏ, Р·Р°СЃС‚РѕСЃРѕРІСѓСЋС‡Рё inner join*/.
 SELECT Title,Themes.theme, Publishment.publishment, Categories.category
 FROM (((Books
 	INNER JOIN Themes ON Books.id_theme=Themes.id_theme)
 	INNER JOIN Publishment ON Books.id_publishment=Publishment.id_publishment)
 	INNER JOIN Categories ON Books.id_category=Categories.id_categories);
 
-/*10.Вивести всі дані універсального відношення. Використовувати зовнішнє з'єднання, застосовуючи left join / rigth join.*/
+/*10.Р’РёРІРµСЃС‚Рё РІСЃС– РґР°РЅС– СѓРЅС–РІРµСЂСЃР°Р»СЊРЅРѕРіРѕ РІС–РґРЅРѕС€РµРЅРЅСЏ. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё Р·РѕРІРЅС–С€РЅС” Р·'С”РґРЅР°РЅРЅСЏ, Р·Р°СЃС‚РѕСЃРѕРІСѓСЋС‡Рё left join / rigth join.*/
 SELECT Title, Themes.theme, Publishment.publishment, Categories.category
 FROM (((Books
 	LEFT JOIN Themes ON Books.id_theme=Themes.id_theme)
 	LEFT JOIN Publishment ON Books.id_publishment=Publishment.id_publishment)
 	LEFT JOIN Categories ON Books.id_category=Categories.id_categories);
 
-/*11.Вивести пари книг, що мають однакову кількість сторінок. Використовувати самооб'єднання і аліаси (self join).*/
+/*11.Р’РёРІРµСЃС‚Рё РїР°СЂРё РєРЅРёРі, С‰Рѕ РјР°СЋС‚СЊ РѕРґРЅР°РєРѕРІСѓ РєС–Р»СЊРєС–СЃС‚СЊ СЃС‚РѕСЂС–РЅРѕРє. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё СЃР°РјРѕРѕР±'С”РґРЅР°РЅРЅСЏ С– Р°Р»С–Р°СЃРё (self join).*/
 SELECT A.Title AS Title_1, B.Title AS Title_2, A.Pages
 FROM Books A,  Books B
 WHERE A.Title <> B.Title
 	AND A.Pages = B.Pages
 ORDER BY A.Pages;
 
-/*12.Вивести тріади книг, що мають однакову ціну. Використовувати самооб'єднання і аліаси (self join).*/
+/*12.Р’РёРІРµСЃС‚Рё С‚СЂС–Р°РґРё РєРЅРёРі, С‰Рѕ РјР°СЋС‚СЊ РѕРґРЅР°РєРѕРІСѓ С†С–РЅСѓ. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё СЃР°РјРѕРѕР±'С”РґРЅР°РЅРЅСЏ С– Р°Р»С–Р°СЃРё (self join).*/
 select a.price, a.Title, b.Title, c.Title 
 from books a 
 join books b on a.price=b.price 
 join books c on b.price=c.price
 
-/*13.Вивести всі книги категорії 'C ++'. використовувати підзапити (Subquery) .*/
+/*13.Р’РёРІРµСЃС‚Рё РІСЃС– РєРЅРёРіРё РєР°С‚РµРіРѕСЂС–С— 'C ++'. РІРёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё РїС–РґР·Р°РїРёС‚Рё (Subquery) .*/
 SELECT * FROM Books, Categories
 WHERE Categories.category IN
-	(SELECT category FROM Categories WHERE category LIKE '%С++%')
+	(SELECT category FROM Categories WHERE category LIKE '%РЎ++%')
 
-/*14.Вивести книги видавництва 'BHV', видані після 2000 р Використовувати підзапити (Subquery) .*/
+/*14.Р’РёРІРµСЃС‚Рё РєРЅРёРіРё РІРёРґР°РІРЅРёС†С‚РІР° 'BHV', РІРёРґР°РЅС– РїС–СЃР»СЏ 2000 СЂ Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё РїС–РґР·Р°РїРёС‚Рё (Subquery) .*/
 SELECT * FROM Books, Publishment
 WHERE Publishment.publishment IN
 	(SELECT publishment FROM Publishment WHERE publishment LIKE '%BHV%')
 	AND YEAR(Date_) >= 2000
 
-/*15.Вивести список видавництв, у яких розмір книг перевищує 400 сторінок. Використовувати пов'язані підзапити (correlated subquery).*/
+/*15.Р’РёРІРµСЃС‚Рё СЃРїРёСЃРѕРє РІРёРґР°РІРЅРёС†С‚РІ, Сѓ СЏРєРёС… СЂРѕР·РјС–СЂ РєРЅРёРі РїРµСЂРµРІРёС‰СѓС” 400 СЃС‚РѕСЂС–РЅРѕРє. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё РїРѕРІ'СЏР·Р°РЅС– РїС–РґР·Р°РїРёС‚Рё (correlated subquery).*/
 SELECT * FROM Publishment main WHERE 400<
 (SELECT SUM(Pages) FROM Books WHERE Publishment=main.publishment)
 
-/*16.Вивести список категорій за якими більше 3-х книг. Використовувати пов'язані підзапити (correlated subquery).*/
+/*16.Р’РёРІРµСЃС‚Рё СЃРїРёСЃРѕРє РєР°С‚РµРіРѕСЂС–Р№ Р·Р° СЏРєРёРјРё Р±С–Р»СЊС€Рµ 3-С… РєРЅРёРі. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё РїРѕРІ'СЏР·Р°РЅС– РїС–РґР·Р°РїРёС‚Рё (correlated subquery).*/
 SELECT Categories.category FROM Books, Categories
 GROUP BY Categories.category HAVING Categories.category =
 	(SELECT category FROM Categories GROUP BY category HAVING COUNT(category)>3)
 
-/*17.Вивести список книг видавництва 'BHV', якщо в списку є хоча б одна книга цього видавництва. Використовувати exists.*/
+/*17.Р’РёРІРµСЃС‚Рё СЃРїРёСЃРѕРє РєРЅРёРі РІРёРґР°РІРЅРёС†С‚РІР° 'BHV', СЏРєС‰Рѕ РІ СЃРїРёСЃРєСѓ С” С…РѕС‡Р° Р± РѕРґРЅР° РєРЅРёРіР° С†СЊРѕРіРѕ РІРёРґР°РІРЅРёС†С‚РІР°. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё exists.*/
 SELECT * FROM Books, Publishment 
 WHERE Publishment.publishment like '%BHV%' 
 	AND EXISTS (SELECT * FROM Books WHERE publishment like '%BHV%')
 
-/*18.Вивести список книг видавництва 'BHV', якщо в списку немає жодної книги цього видавництва. використовувати not  exists.*/
+/*18.Р’РёРІРµСЃС‚Рё СЃРїРёСЃРѕРє РєРЅРёРі РІРёРґР°РІРЅРёС†С‚РІР° 'BHV', СЏРєС‰Рѕ РІ СЃРїРёСЃРєСѓ РЅРµРјР°С” Р¶РѕРґРЅРѕС— РєРЅРёРіРё С†СЊРѕРіРѕ РІРёРґР°РІРЅРёС†С‚РІР°. РІРёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё not  exists.*/
 SELECT * FROM Books B
 WHERE NOT EXISTS (SELECT P.publishment FROM Publishment P WHERE B.id_publishment=p.id_publishment AND p.publishment LIKE '%BHV%')
 
-/*19.Вивести відсортоване загальний список назв тем і категорій. Використовувати union.*/
+/*19.Р’РёРІРµСЃС‚Рё РІС–РґСЃРѕСЂС‚РѕРІР°РЅРµ Р·Р°РіР°Р»СЊРЅРёР№ СЃРїРёСЃРѕРє РЅР°Р·РІ С‚РµРј С– РєР°С‚РµРіРѕСЂС–Р№. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё union.*/
 SELECT theme FROM Themes
 UNION 
 SELECT category from Categories
 ORDER BY 1 ASC
 
-/*20.Вивести відсортоване в зворотному порядку загальний список  перших слів назв книг (що не повторюються) і категорій. Використовувати union.*/
+/*20.Р’РёРІРµСЃС‚Рё РІС–РґСЃРѕСЂС‚РѕРІР°РЅРµ РІ Р·РІРѕСЂРѕС‚РЅРѕРјСѓ РїРѕСЂСЏРґРєСѓ Р·Р°РіР°Р»СЊРЅРёР№ СЃРїРёСЃРѕРє  РїРµСЂС€РёС… СЃР»С–РІ РЅР°Р·РІ РєРЅРёРі (С‰Рѕ РЅРµ РїРѕРІС‚РѕСЂСЋСЋС‚СЊСЃСЏ) С– РєР°С‚РµРіРѕСЂС–Р№. Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё union.*/
 SELECT SUBSTRING(Title, 1, CHARINDEX(' ',Title)) FROM Books
 UNION
 SELECT SUBSTRING(category, 1, CHARINDEX(' ',category)) FROM Categories 
