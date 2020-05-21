@@ -1,6 +1,5 @@
--- БД  студентов (факультет – специальность – группа – студент). 
-
---DROP TABLE STUDENT;
+-- Р‘Р”  СЃС‚СѓРґРµРЅС‚РѕРІ (С„Р°РєСѓР»СЊС‚РµС‚ вЂ“ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚СЊ вЂ“ РіСЂСѓРїРїР° вЂ“ СЃС‚СѓРґРµРЅС‚). 
+CREATE DATABASE [students]
 
 CREATE TABLE Faculty(
 id_faculty INT NOT NULL PRIMARY KEY,
